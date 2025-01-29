@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <style>
+        #bodyHTML {
+            display: none;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+
+        }
+
+        .header__container {
+            background-color: #f9dedf;
+            display: flex;
+        }
+
+        .header__img {
+            width: 200px;
+            height: 100px;
+        }
+
+        .header__title {
+            text-align: center;
+            font-size: 25px;
+            margin: auto;
+            flex: 2;
+        }
+
+        .header--logout {
+            height: 33px;
+            display: flex;
+            margin: auto;
+            margin-right: 30px;
+        }
+
+        .header--logout button {
+            background-color: #f18f91;
+            border: none;
+            border-radius: 2px;
+        }
+
+        .header--logout button:hover {
+            background-color: #e87476;
+        }
+
+        .body__container {
+            margin-top: 20px;
+            display: flex;
+
+        }
+
+        .body__sidebar {
+            position: sticky;
+            top: 120px;
+            width: 200px;
+            height: 250px;
+            padding: 12px;
+            font-size: 25px;
+            line-height: 40px;
+            text-decoration: none;
+            border-right: 2px solid #f28d91;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1)
+        }
+
+        .body__sidebar--main:hover {
+            border-radius: 3px;
+            background-color: #f18f91;
+            transform: scale(1.1);
+        }
+
+        /* trang khoa hoc la trang chinh */
+        .body__sidebar--class {
+            border-radius: 3px;
+            background-color: #f28d91;
+        }
+
+        .body__sidebar--cuorse:hover {
+            border-radius: 3px;
+            background-color: #f18f91;
+            transform: scale(1.1);
+        }
+
+        .body__sidebar--students:hover {
+            border-radius: 3px;
+            background-color: #f18f91;
+            transform: scale(1.1);
+        }
+
+        .body__sidebar--acound:hover {
+            border-radius: 3px;
+            background-color: #f18f91;
+            transform: scale(1.1);
+        }
+
+        a {
+            display: inline-block;
+            color: rgb(20, 20, 20);
+            text-decoration: none;
+        }
+
+        /* CSS BODY COURSE */
+        .body__course {
+            width: 100%;
+        }
+
+        .body__course--container {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .body__course__title {
+            text-align: center;
+            font-size: 20px;
+        }
+
+        /* Css thanh navbar */
+
+        .body__course__navbar {
+            width: 100%;
+            height: 30px;
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .body__course__navbar--btn-addnew {
+            flex: 1;
+        }
+
+        .body__course__navbar--search {
+            display: flex;
+            flex: 2;
+
+        }
+
+        .body__course__navbar--search input {
+            width: 350px;
+        }
+
+        .body__course__navbar--sort {
+            margin-right: 15px !important;
+        }
+
+        /* CSS COURSE MANAGEMENT TABLE */
+        .body__course__title {
+            justify-content: center;
+        }
+
+        .action-btn {
+            background-color: #f9dedf;
+            width: 100%;
+        }
+
+        .action-btn:hover {
+            background-color: #f28d91 !important;
+        }
+
+
+
+        /* CSS MODAL */
+        .modal__body__exit button {
+            width: 50px;
+        }
+
+        .moder__inner {
+            margin-bottom: 20px;
+        }
+
+        .modal__inner--input {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .modal__inner--input :nth-child(1) {
+            min-width: 130px;
+        }
+
+        .modal__inner--input :nth-child(2) {
+            flex: 1;
+        }
+
+        .modal__inner--input--radio {
+            display: flex;
+        }
+
+        .modal__inner--input--radio :nth-child(1) {
+            min-width: 110px;
+        }
+
+
+        .modal__inner--btn {
+            height: 35px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+        }
+    </style>
+</head>
+
+<body id="bodyHTML">
+    <header>
+        <div class="header__container">
+            <div class="header__logo">
+                <div class="header__img"> <img class="header__img header__img--item"
+                        src="https://d2v9k5u4v94ulw.cloudfront.net/assets/images/7362266/original/8f7ca6b5-1ef1-4f4f-94b8-e4683c92bcfa?1629257770"
+                        alt=""></div>
+            </div>
+            <h4 class="header__title">HỆ THỐNG QUẢN LÝ SINH VIÊN RIKKEI </h4>
+            <div class="header--logout" id="logout-btn"><button>Đăng xuất</button></div>
+        </div>
+    </header>
+    <div class="body__container">
+        <div>
+            <div class="body__sidebar">
+                <div class="body__sidebar--main"><a href="./index.html"> Bảng điều khiển</a> </div>
+                <div class="body__sidebar--cuorse"><a href="./courseManagement.html">Quản lí khoá học</a></div>
+                <div class="body__sidebar--class"><a href="./classManagement.html"> Quản lý lớp học</a></div>
+                <div class="body__sidebar--students"><a href="./studentManagement.html">Quản lý sinh viên</a></div>
+                <div class="body__sidebar--acound"><a href="./accountManagement.html">Quản lý tài khoản</a></div>
+
+            </div>
+        </div>
+        <div class="body__course">
+            <!-- bang quan ly khoa hoc -->
+            <div class="body__course--container">
+                <h4 class="body__course__title"> QUẢN LÝ LỚP HỌC</h4>
+                <div class="body__course__navbar">
+                    <div class="body__course__navbar--btn-addnew"> <button id="btn-addnew">
+                            Thêm mới </button>
+                    </div>
+                    <div class="body__course__navbar--search">
+                        <input type="text" id="searchInput" placeholder="Nhập tên nội dung cần tìm kiếm">
+                        <button id="searchBtn">Tìm kiếm</button>
+                    </div>
+                    <div class="body__course__navbar--sort">Sắp xếp</div>
+                    <div class="body__course__navbar--select-option">
+                        <select id="sortSelect">
+                            <option value="" disabled selected>Lựa chọn sắp xếp</option>
+                            <option value="asc">Tăng dần theo tên lớp học </option>
+                            <option value="desc">Giảm dần theo tên lớp học</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- TABLE -->
+                <table class="body__course--table" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã lớp</th>
+                            <th> Tên lớp</th>
+                            <th>Giảng viên</th>
+                            <th> Mô tả</th>
+                            <th>Sĩ sỗ</th>
+                            <th>Trạng thái</th>
+                            <th>khoá học</th>
+                            <th colspan="2">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <div class="pagination" id="pagination"></div>
+            </div>
+        </div>
+        <div class="modal">
+            <div class="modal__overlay"></div>
+            <div class="modal__body">
+                <div class="modal__body__exit"><button><i class="fa-solid fa-x"></i></button></div>
+
+                <div class="modal__inner">
+                    <h3 id="modal-title">Modal- Thêm mới khoá học</h3>
+                    <br>
+
+                    <div class="modal__inner--input">
+                        <label for="classId">Mã lớp</label>
+                        <input id="classId" type="text" placeholder="Nhập mã lớp">
+
+                    </div>
+                    <div class="modal__inner--input">
+                        <label for="className">Tên lớp</label>
+                        <input id="className" type="text" placeholder="Nhập tên lớp">
+                    </div>
+                    <div class="modal__inner--input">
+                        <label for="classTeacherName">Tên giảng viên</label>
+                        <input id="classTeacherName" type="text" placeholder="Nhập tên giảng viên">
+                    </div>
+                    <div class="modal__inner--input">
+                        <label for="studentCount">Sĩ số</label>
+                        <input id="studentCount" type="text" placeholder=" Nhập sĩ số lớp">
+                    </div>
+
+                    <div class="modal__inner--input">
+                        <label for="classDetails"> Mô tả</label>
+                        <input id="classDetails" type="text" placeholder="Nhập mô tả">
+                    </div>
+                    <div class="modal__inner--input">
+                        <label for="selectCourse"> Khoá học</label>
+                        <select name="" id="selectCourse">
+                        </select>
+                    </div>
+                    <div class="modal__inner--input">
+                        <label for="classStatus">Trạng thái</label>
+                        <select name="" id="classStatus">
+                            <option value="" disabled selected>chọn trạng thái của lớp</option>
+                            <option value="Chờ lớp"> chờ lớp</option>
+                            <option value="Đang hoạt động">đang hoạt động</option>
+                            <option value="đã kết thúc">đã kết thúc</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="modal__inner--btn">
+                        <button id="addRowBtn">Thêm mới</button>
+                        <button id="editBtn"> Cập nhật</button>
+                        <button class="modal__inner--btn-exit">Đóng</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <script src="../js/main.js"></script>
+    <script src="../js/class.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./base.css">
+</head>
+<style>
+    body {
+        background-image: url(https://transvelo.github.io/skola-html/5.1/assets/img/illustrations/illustration-7.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        display: flex;
+    }
+
+    .container {
+        margin-top: 100px;
+        display: flex;
+        font-size: 25px;
+    }
+
+    .img {
+        margin-left: 150px;
+
+    }
+
+    .login {
+        margin-top: 1000px;
+        padding: 10px;
+        /* background-color: #f9dedf; */
+        justify-content: center;
+        text-align: center;
+        width: 400px;
+        height: 400px;
+        margin: auto;
+        font-size: larger;
+
+    }
+
+    .item1 {
+        display: flex;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .item2 {
+        display: flex;
+    }
+
+    .form__label {
+        min-width: 130px;
+    }
+
+    .form__input {
+        flex: 1;
+    }
+
+    .btn__login {
+        margin-top: 50px;
+        border-radius: 3px;
+        width: 150px;
+        height: 30px;
+        background-color: #f4494f;
+        color: rgb(49, 45, 45);
+        border: none;
+    }
+
+    .btn__login:hover {
+        background-color: #bd2228;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="login">
+            <h3> Đăng Nhập</h3>
+            <div class="item1">
+                <label class="form__label" for="Email">Email</label>
+                <input class="form__input email" type="text">
+            </div>
+            <div class="item2">
+                <label class="form__label" for="password"> Mật Khẩu</label>
+                <input class="form__input password" type="password">
+            </div>
+
+            <button class="btn__login"> Đăng nhập</button>
+        </div>
+    </div>
+    <div class="img"><img src="https://learn.rikkeiacademy.com/static/media/1.b26ab8a7.png" alt=""></div>
+    <script src=" ../js/login.js"></script>
+</body>
+
+</html>

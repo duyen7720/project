@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <style>
+        #bodyHTML {
+            display: none;
+        }
+
+        .header__container {
+            background-color: #f9dedf;
+            display: flex;
+        }
+
+        .header__img {
+            flex: 1;
+            width: 200px;
+            height: 100px;
+        }
+
+        .header__title {
+            text-align: center;
+            flex: 2;
+            font-size: 25px;
+            margin: auto;
+        }
+
+        .header--logout {
+            height: 33px;
+            display: flex;
+            margin: auto;
+            margin-right: 30px;
+        }
+
+        .header--logout button {
+            background-color: #f18f91;
+            border: none;
+            border-radius: 2px;
+        }
+
+        .header--logout button:hover {
+            background-color: #e87476;
+        }
+
+
+        .body__container {
+            padding-top: 20px;
+            display: flex;
+        }
+
+        .body__sidebar {
+            position: sticky;
+            top: 120px;
+            width: 200px;
+            height: 250px;
+            padding: 12px;
+            font-size: 25px;
+            line-height: 40px;
+            text-decoration: none;
+            border-right: 2px solid #f28d91;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1)
+        }
+
+        .body__sidebar--main {
+            border-radius: 3px;
+            background-color: #f28d91;
+        }
+
+        .body__sidebar--cuorse:hover {
+            border-radius: 3px;
+            background-color: #f18f91;
+            transform: scale(1.1);
+        }
+
+        .body__sidebar--class:hover {
+            border-radius: 3px;
+            background-color: #f18f91;
+            transform: scale(1.1);
+        }
+
+        .body__sidebar--students:hover {
+            border-radius: 3px;
+            background-color: #f18f91;
+            transform: scale(1.1);
+        }
+
+        .body__sidebar--acound:hover {
+            border-radius: 3px;
+            background-color: #f18f91;
+            transform: scale(1.1);
+        }
+
+        .body__item {
+            font-size: 20px;
+            display: flex;
+            flex: 4;
+        }
+
+        a {
+            display: inline-block;
+            color: rgb(20, 20, 20);
+            text-decoration: none;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .body__item1 {
+            flex: 1;
+            margin: 10px;
+            padding-left: 15px;
+            box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .body__item2 {
+            padding-left: 15px;
+            box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            flex: 1;
+        }
+
+        .body__item3 {
+            padding-left: 15px;
+            box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body id='bodyHTML'>
+    <header>
+        <div class="header__container">
+            <div class="header__logo">
+                <div class="header__img"> <img class="header__img header__img--item"
+                        src="https://d2v9k5u4v94ulw.cloudfront.net/assets/images/7362266/original/8f7ca6b5-1ef1-4f4f-94b8-e4683c92bcfa?1629257770"
+                        alt=""></div>
+            </div>
+            <h4 class="header__title">HỆ THỐNG QUẢN LÝ SINH VIÊN RIKKEI </h4>
+            <div class="header--logout"><button id="logOut">Đăng xuất</button></div>
+        </div>
+    </header>
+
+    <div class="body__container">
+        <div class="body__sidebar">
+            <div class="body__sidebar--main"><a href="./index.html"> Bảng điều khiển</a> </div>
+            <div class="body__sidebar--cuorse"><a href="./courseManagement.html">Quản lí khoá học</a></div>
+            <div class="body__sidebar--class"><a href="./classManagement.html"> Quản lý lớp học</a></div>
+            <div class="body__sidebar--students"><a href="./studentManagement.html">Quản lý sinh viên</a></div>
+            <div class="body__sidebar--acound"><a href="./accountManagement.html">Quản lý tài khoản</a></div>
+        </div>
+        <div class=" body__item">
+            <div class="body__item1">
+                <div class="body__item1--icon">
+                    <h4 class="body__item1--title">Thống kê khoá học</h4>
+                    <a href="" id="course-count">
+                    </a>
+
+                </div>
+
+            </div>
+            <a href=""></a>
+            <div class="body__item2">
+                <h4 class="body__item2--title">Thống kê lớp học</h4>
+                <a href="">Số lớp học:</a>
+                <br>
+                <a href="">số lớp đang hoạt động:</a><br>
+                <a href="">Số lớp đã kết thúc:</a><br>
+                <a href="">Số lớp đang chờ:</a><br>
+            </div>
+            <div class="body__item3">
+                <h4 class="body__item3--title">Thống kê sinh viên</h4>
+                <a href="">Tổng số sinh viên:</a> <br>
+                <a href="">Số sinh viên chờ lớp:</a><br>
+                <a href="">Số sinh viên đang học:</a><br>
+                <a href="">số sinh viên bảo lưu /đình chỉ:</a><br>
+                <a href="">Số sinh viên tốt nghiệp:</a><br>
+            </div>
+
+        </div>
+    </div>
+    <script src="../js/main.js"></script>
+    <script src="../js/index.js"></script>
+</body>
+
+</html>
