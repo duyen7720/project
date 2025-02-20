@@ -194,7 +194,7 @@
 
         .modal__inner--input {
             display: flex;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
         }
 
         .modal__inner--input :nth-child(1) {
@@ -245,7 +245,7 @@
         <div class="body__course">
             <!-- bang quan ly khoa hoc -->
             <div class="body__course--container">
-                <h4 class="body__course__title"> QUẢN LÝ LỚP HỌC</h4>
+                <h4 class="body__course__title"> QUẢN LÝ SINH VIÊN</h4>
                 <div class="body__course__navbar">
                     <div class="body__course__navbar--btn-addnew"> <button id="btn-addnew">
                             Thêm mới </button>
@@ -319,10 +319,30 @@
                         <input id="phone" type="text" placeholder="Nhập số điện thoại">
                     </div>
                     <div class="modal__inner--input">
+                        <label for="selectCourse"> Khoá học</label>
+                        <select name="" id="selectCourse">
+                        </select>
+                    </div>
+                    <div class="modal__inner--input">
+                        <label for="selectClass"> Lớp học</label>
+                        <select name="" id="selectClass">
+                        </select>
+                    </div>
+                    <div class="modal__inner--input">
+                        <label for="selectStatus"> Trạng thái</label>
+                        <select name="" id="selectStatus">
+                            <option selected="selected" value="01">Chờ lớp</option>
+                            <option value="02">Đang học</option>
+                            <option value="03">Bảo lưu</option>
+                            <option value="04">Đình chỉ</option>
+                            <option value="05"> tốt nghiệp</option>
+                        </select>
+                    </div>
+                    <div class="modal__inner--input">
                         <label for="gioitinh">Giới tính</label>
                         <div class="flex">
                             <span>
-                                <input type="radio" name="sex" id="male" value="Nam" />
+                                <input checked type="radio" name="sex" id="male" value="Nam" />
                                 <label for="male">Nam</label>
                             </span>
                             <span>
@@ -346,7 +366,7 @@
 
     </div>
     <script src="../js/main.js"></script>
-    <script src="../js/student.js"></script>
+    <script src="../js/studentEx.js"></script>
 </body>
 
 </html>

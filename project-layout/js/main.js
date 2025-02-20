@@ -3,9 +3,63 @@ const COURSE_DATA_KEY = 'arrayCourses'
 const data = JSON.parse(localStorage.getItem(COURSE_DATA_KEY)) || [];
 const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
+// Function to generate a random integer between a given range
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Function to generate a random string of given length
+function generateRandomString(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+}
+
+// Create 15 students
+const students = Array.from({ length: 15 }, (_, i) => ({
+  studentId: `S${i + 1}`,
+  studentName: `Student ${i + 1}`,
+  year: getRandomInt(1, 4),
+  address: `Address ${i + 1}`,
+  email: `student${i + 1}@example.com`,
+  phone: `090${getRandomInt(1000000, 9999999)}`,
+  sex: getRandomInt(0, 1) === 0 ? 'Male' : 'Female',
+  status: getRandomInt(0, 1) === 0 ? 'Active' : 'Inactive'
+}));
+
+// Create 10 classes
+const classes = Array.from({ length: 10 }, (_, i) => ({
+  classId: `C${i + 1}`,
+  className: `Class ${i + 1}`,
+  descriptions: `Description for Class ${i + 1}`,
+  totalNumber: 3, // Each class has 3 students
+  lecturer: `Lecturer ${getRandomInt(1, 5)}`, // Random lecturer from 1 to 5
+  status: getRandomInt(0, 1) === 0 ? 'Active' : 'Inactive',
+  arrayStudent: students.slice(i * 3, (i + 1) * 3) // Assign 3 students per class
+}));
+
+// Create 5 courses
+const courses = Array.from({ length: 5 }, (_, i) => ({
+  courseId: `Course${i + 1}`,
+  courseName: `Course ${i + 1}`,
+  courseTime: `Time Slot ${i + 1}`,
+  status: getRandomInt(0, 1) === 0 ? 'Active' : 'Inactive',
+  arrayClass: classes.slice(i * 2, (i + 1) * 2) // Assign 2 classes per course
+}));
+
+// Final array of courses
+const arrayCourses = courses;
+
 
 // Kiểm tra trạng thái đăng nhập khi trang main được tải
 window.addEventListener("DOMContentLoaded", function () {
+
+  // localStorage.setItem('arrayCourses', JSON.stringify(arrayCourses))
+
+
   // Kiểm tra xem người dùng đã đăng nhập chưa
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
