@@ -205,6 +205,11 @@
             flex: 1;
         }
 
+        .hidden {
+            width: 100%;
+            display: none;
+        }
+
         .flex {
             display: flex;
             align-items: start;
@@ -322,11 +327,13 @@
                         <label for="selectCourse"> Khoá học</label>
                         <select name="" id="selectCourse">
                         </select>
+                        <input type="text" disabled id="disabledCourse" class="hidden" />
                     </div>
                     <div class="modal__inner--input">
                         <label for="selectClass"> Lớp học</label>
                         <select name="" id="selectClass">
                         </select>
+                        <input type="text" disabled id="disabledClass" class="hidden" />
                     </div>
                     <div class="modal__inner--input">
                         <label for="selectStatus"> Trạng thái</label>

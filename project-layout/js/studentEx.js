@@ -1,5 +1,25 @@
-// Load dữ liệu từ Local Storage
-const STUDENT_DATA_KEY = 'studentData'
+// Các ô nhập liệu
+const studentId = document.getElementById('studentId')
+const studentName = document.getElementById('studentName')
+const year = document.getElementById('year')
+const address = document.getElementById('address')
+const email = document.getElementById('email')
+const phone = document.getElementById('phone')
+const maleRadio = document.getElementById("male")
+const femaleRadio = document.getElementById("female")
+const selectClass = document.getElementById("selectClass")
+const selectCourse = document.getElementById("selectCourse")
+const selectStatus = document.getElementById("selectStatus")
+const hiddenInputs = document.querySelectorAll('.hidden')
+const disabledCourse = document.getElementById("disabledCourse")
+const disabledClass = document.getElementById("disabledClass")
+
+// Các nút và bảng
+let editButton = document.getElementById('editBtn')
+let addRowButton = document.getElementById('addRowBtn');
+const dataTable = document.getElementById('dataTable').querySelector('tbody');
+const modalTitle = document.getElementById('modal-title');
+const modal = document.querySelector('.modal');
 
 function getAllStudents(arrayCourses) {
     let allStudents = [];
@@ -9,7 +29,9 @@ function getAllStudents(arrayCourses) {
                 let studentObj = {
                     ...student,
                     classId: classItem.classId,
-                    className: classItem.className
+                    className: classItem.className,
+                    courseId: course.courseId,
+                    courseName: course.courseName
                 }
                 allStudents.push(studentObj)
             })
@@ -19,23 +41,6 @@ function getAllStudents(arrayCourses) {
     return allStudents;
 }
 
-// Các ô nhập liệu
-let studentId = document.getElementById('studentId')
-let studentName = document.getElementById('studentName')
-let year = document.getElementById('year')
-let address = document.getElementById('address')
-let email = document.getElementById('email')
-let phone = document.getElementById('phone')
-const selectClass = document.getElementById("selectClass")
-const selectCourse = document.getElementById("selectCourse")
-const selectStatus = document.getElementById("selectStatus");
-
-// Các nút và bảng
-let editButton = document.getElementById('editBtn')
-let addRowButton = document.getElementById('addRowBtn');
-const dataTable = document.getElementById('dataTable').querySelector('tbody');
-const modalTitle = document.getElementById('modal-title');
-const modal = document.querySelector('.modal');
 function getCourseDropdown() {
     selectCourse.innerHTML = '';
     // Thêm option mặc định "Chọn khóa học"
@@ -54,7 +59,6 @@ function getCourseDropdown() {
 
     });
 };
-// 
 
 selectCourse.onchange = function (e) {
     const courseId = e.target.value
@@ -88,7 +92,8 @@ function getClassDropdown(courseId) {
 
 // Hiển thị modal Thêm mới
 document.getElementById('btn-addnew').addEventListener('click', function () {
-    modalTitle.textContent = 'Modal - Thêm mới Lớp học';
+    initValue()
+    modalTitle.textContent = 'Modal - Thêm mới Học sinh';
     editButton.style.display = 'none'
     addRowButton.style.display = 'block'
     if (modal.style.display === 'none' || modal.style.display === '') {
@@ -109,7 +114,6 @@ document.querySelectorAll('.modal__body__exit, .modal__inner--btn-exit').forEach
 
 // Xử lý nút Thêm dòng
 addRowButton.onclick = () => {
-
     let sex = document.querySelector('input[name="sex"]:checked')
     if (!studentId.value || !studentName.value || !year.value || !address.value || !email.value || !phone.value || !sex?.value) {
         alert('Vui lòng nhập đầy đủ thông tin!');
@@ -130,7 +134,7 @@ addRowButton.onclick = () => {
         email: email.value,
         phone: phone.value,
         sex: sex.value,
-        status: getStatusByValue(selectStatus.value)
+        status: getStatusText(selectStatus.value)
     }
 
     const selectedCourseId = selectCourse.value;
@@ -160,6 +164,7 @@ addRowButton.onclick = () => {
     localStorage.setItem(COURSE_DATA_KEY, JSON.stringify(data))
     alert("Đã thêm học sinh thành công")
     renderTable();
+    renderPagination();
     modal.style.display = 'none';
 };
 
@@ -170,49 +175,21 @@ const statusData = [
     { value: "04", text: "Đình chỉ" },
     { value: "05", text: "Tốt nghiệp" }
 ]
-function getStatus(cond, isValue) {
-    let status = "";
-    let result = "";
-
-    if (isValue) {
-        status = statusData.find(status => status.value === cond);
-        result = status ? status.text : "";
-    } else {
-        status = statusData.find(status => status.text === cond);
-        result = status ? status.value : "";
+function getStatusValue(text) {
+    let value = "";
+    const status = statusData.find(statusItem => statusItem.text === text);
+    if (status) {
+        value = status.value
     }
-    return result;
+    return value;
 }
-
-function dataUpdate() {
-    // Lấy dữ liệu của lớp học từ form input
-    const studentId = studentIdValue;
-    const studentName = studentNameValue;
-    const year = yearValue;
-    const address = addressValue;
-    const email = emailValue;
-    const phone = phoneValue;
-    const sex = sexValue;
-
-    // Lặp qua mảng data và tìm lớp học có id trùng với id cần cập nhật
-    data.forEach((student) => {
-        // Nếu tìm thấy lớp học có ID trùng với ID cần cập nhật
-        if (student.studentId === studentId) {
-            // Cập nhật thông tin lớp học với giá trị mới từ form
-            student.studentId = student.studentId;
-            student.studentName = studentName;
-            student.year = year;
-            student.address = address;
-            student.email = email;
-            student.phone = phone;
-            student.sex = sex;
-        }
-    });
-
-    //Lưu lại dữ liệu mới vào LocalStorage
-    localStorage.setItem(STUDENT_DATA_KEY, JSON.stringify(data));
-    // Tải lại trang để cập nhật bảng hiển thị
-    window.location.reload();
+function getStatusText(value) {
+    let text = "";
+    const status = statusData.find(statusItem => statusItem.value === value);
+    if (status) {
+        text = status.text;
+    }
+    return text;
 }
 
 // Hàm render bảng
@@ -251,15 +228,17 @@ function renderTable(param) {
                 `;
 
         tbody.appendChild(tr);
-        tr.querySelector('.edit').addEventListener('click', () => editRow(tr));
-        tr.querySelector('.delete').addEventListener('click', () => deleteRow('courseId', course.courseId));
+        tr.querySelector('.edit').addEventListener('click', () => editRow(student.studentId));
+        tr.querySelector('.delete').addEventListener('click', () => deleteRow(student.studentId));
 
         getClassDropdown();
 
     });
 }
 
-function editRow(row) {
+let updCourseId = ""
+let updClassId = ""
+function editRow(selectedStudentId) {
     // Hiển thị modal
     if (modal.style.display === 'none' || modal.style.display === '') {
         modal.style.display = 'block';
@@ -267,34 +246,108 @@ function editRow(row) {
     // thay doi title cua modal
     modalTitle.textContent = 'Modal-Cập Nhật Thông tin sinh viên'
 
+    // Disable các hạng mục
+    selectCourse.disabled = true;
+    selectClass.disabled = true;
+    studentId.disabled = true;
+
+    // Ẩn / hiện các hạng mục
+    selectCourse.style.display = "none"
+    selectClass.style.display = "none"
+    for (const hiddenInput of hiddenInputs) {
+        hiddenInput.style.display = "inline-block"
+    }
+
     // Lấy dữ liệu từ các ô trong dòng và gán vào modal (input)
-    studentId.value = row.children[1].textContent;
-    studentName.value = row.children[2].textContent;
-    year.value = row.children[3].textContent;
-    address.value = row.children[4].textContent;
-    email.value = row.children[5].textContent;
-    phone.value = row.children[6].textContent;
-    console.log(row.children[7]);
-    selectStatus.value = getStatusByText(row.children[7].textContent);
+    const studentList = getAllStudents(data);
+    studentList.map(student => {
+        if (student.studentId === selectedStudentId) {
+            studentId.value = selectedStudentId;
+            studentName.value = student.studentName;
+            year.value = student.year;
+            address.value = student.address;
+            email.value = student.email;
+            phone.value = student.phone;
+            selectStatus.value = getStatusValue(student.status);
+            disabledCourse.value = student.courseName;
+            disabledClass.value = student.className;
+            if (student.sex === "Nam") {
+                maleRadio.checked = true;
+            } else {
+                femaleRadio.checked = true;
+            }
+            updCourseId = student.courseId;
+            updClassId = student.classId;
+        }
+    })
 
-    //stt o day dang la hoat dong , hoac khong hoat dong
-    // var radio1 = document.getElementById("active");
-    // var radio2 = document.getElementById("inactive");
-    // if (status === "Hoạt động") {
-    //     radio1.checked = true;
-
-    // } else {
-    //     radio2.checked = true;
-    // }
-    // idInput.disabled = true
     addRowButton.style.display = 'none'
     editButton.style.display = 'block'
+
+    // alert("Cập nhật thành công")
+}
+
+editButton.onclick = () => {
+    data.map((course) => {
+        if (course.courseId === updCourseId) {
+            course.arrayClass.map(clazz => {
+                if (clazz.classId === updClassId) {
+                    clazz.arrayStudent.map(student => {
+                        if (student.studentId === studentId.value) {
+                            student.studentId = student.studentId;
+                            student.studentName = studentName.value;
+                            student.year = year.value;
+                            student.address = address.value;
+                            student.email = email.value;
+                            student.phone = phone.value;
+                            student.status = getStatusText(selectStatus.value);
+                            if (maleRadio.checked) {
+                                student.sex = "Nam";
+                            } else {
+                                student.sex = "Nữ";
+                            }
+                        }
+                    })
+                }
+            })
+        }
+    })
+
+    const editedData = [...data];
+    //luu lai vao local
+    localStorage.setItem(COURSE_DATA_KEY, JSON.stringify(editedData))
+    alert("Cập nhật thành công")
+    window.location.reload();
+
+}
+
+// JS NÚT DELETE
+function deleteRow(studentId) {
+    // Hiển thị modal
+    if (confirmDelete.style.display === 'none' || confirmDelete.style.display === '') {
+        confirmDelete.style.display = 'block';
+    }
+    // Khi nhấn "Xoá", thực hiện hành động xóa dòng
+    deleteAction.addEventListener('click', () => {
+        data.forEach(course => {
+            course.arrayClass.forEach(clazz => {
+                clazz.arrayStudent = clazz.arrayStudent.filter(student => student.studentId !== studentId);
+            });
+        });
+        localStorage.setItem(COURSE_DATA_KEY, JSON.stringify(data));
+        alert("Xóa thành công")
+        window.location.reload();
+    });
+
+    // Khi nhấn "Huỷ", đóng modal mà không làm gì
+    cancelAction.addEventListener('click', () => {
+        confirmDelete.style.display = 'none'; // Ẩn modal
+    })
 }
 
 // JS PHÂN TRANG 
 let rowsPerPage = 10;  // Số dòng mỗi trang
 let currentPage = 1;  // Trang hiện tại
-
 // Hàm render thanh phân trang
 function renderPagination(param) {
     let list = []
@@ -331,6 +384,33 @@ function renderPagination(param) {
     } else {
         pagination.innerHTML = '';  // Không hiển thị phân trang nếu chỉ có 1 trang
     }
+
+    initValue();
+}
+
+function initValue() {
+
+    for (const hiddenInput of hiddenInputs) {
+        hiddenInput.style.display = "none"
+    }
+
+    selectCourse.style.display = "inline-block"
+    selectClass.style.display = "inline-block"
+
+    studentId.value = ""
+    studentId.disabled = false;
+    studentName.value = ""
+    year.value = ""
+    address.value = ""
+    email.value = ""
+    phone.value = ""
+    maleRadio.checked = true
+    selectClass.value = ""
+    selectClass.disabled = false
+    selectCourse.value = ""
+    selectCourse.disabled = false
+    selectStatus.value = "01"
+
 }
 
 // Hàm chuyển trang
@@ -342,7 +422,35 @@ function changePage(page) {
     }
 }
 
-renderTable();
-renderPagination();
 const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
+searchBtn.onclick = () => {
+    const searchCond = searchInput.value;
+    let result = searchStudent("studentId", searchCond)
+        || searchStudent("studentName", searchCond)
+        || searchStudent("year", searchCond)
+        || searchStudent("address", searchCond)
+        || searchStudent("email", searchCond)
+        || searchStudent("phone", searchCond)
+        || searchStudent("status", searchCond)
+        || searchStudent("className", searchCond)
+
+    renderTable(result);
+    renderPagination(result);
+    changePage(1);
+}
+
+function searchStudent(key, condition) {
+    let result = [];
+    let studentList = getAllStudents(data);
+    if (condition) {
+        const lowerCaseCondition = condition.toLowerCase();
+        result = studentList.filter(item => item[key]?.toString().toLowerCase().includes(lowerCaseCondition));
+    } else {
+        result = studentList;
+    }
+    return result;
+}
+
+renderTable();
+renderPagination();
